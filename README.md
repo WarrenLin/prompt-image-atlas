@@ -6,6 +6,10 @@ This is a static visual browser for GPT-Image-2 prompt examples. It turns the pr
 
 Live site: https://warrenlin.github.io/prompt-image-atlas/
 
+## Screenshot
+
+![GPT-Image-2 Prompt Atlas website screenshot](assets/screenshot.png)
+
 ## What It Does
 
 - Browse 290 GPT-Image-2 prompt examples
