@@ -169,6 +169,12 @@
       if (!button) return;
       state.selectedId = button.dataset.caseId;
       render();
+      if (window.matchMedia("(max-width: 820px)").matches) {
+        requestAnimationFrame(() => {
+          const top = dom.detailPanel.getBoundingClientRect().top + window.pageYOffset - 12;
+          window.scrollTo({ top, behavior: "smooth" });
+        });
+      }
     });
 
     dom.detailPanel.addEventListener("click", (event) => {
@@ -336,6 +342,10 @@
             <h3>${escapeHTML(item.title)}</h3>
             <p class="effect-line">${escapeHTML(tags)}</p>
             <dl class="formula-grid">${formulaRows}</dl>
+            <p class="prompt-preview">${escapeHTML(makePromptPreview(item.prompt))}</p>
+            <div class="card-action-row">
+              <span>看完整 Prompt</span>
+            </div>
           </div>
         </button>
       </article>
@@ -375,12 +385,12 @@
         <p class="detail-meta">Case ${item.caseNumber} · @${escapeHTML(item.author)} · ${item.promptLength.toLocaleString()} chars</p>
         <div class="tag-list">${tags}</div>
 
-        <section class="panel-block">
+        <section class="panel-block formula-block">
           <h3>Prompt 公式</h3>
           <dl class="formula-grid">${formulaRows}</dl>
         </section>
 
-        <section class="panel-block">
+        <section class="panel-block full-prompt-block">
           <h3>完整 Prompt</h3>
           <pre class="prompt-box">${escapeHTML(item.prompt)}</pre>
           <div class="detail-actions">
@@ -423,6 +433,12 @@
 
   function normalize(value) {
     return String(value || "").toLowerCase().normalize("NFKC");
+  }
+
+  function makePromptPreview(prompt) {
+    const collapsed = String(prompt || "").replace(/\s+/g, " ").trim();
+    if (collapsed.length <= 180) return collapsed;
+    return `${collapsed.slice(0, 180)}...`;
   }
 
   function escapeHTML(value) {

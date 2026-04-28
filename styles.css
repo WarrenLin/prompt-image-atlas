@@ -449,6 +449,28 @@ h3 {
   color: var(--ink);
 }
 
+.prompt-preview,
+.card-action-row {
+  display: none;
+}
+
+.prompt-preview {
+  margin: 12px 0 0;
+  color: #3f463b;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.card-action-row {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 800;
+}
+
 .detail-panel {
   padding: 0;
 }
@@ -634,11 +656,49 @@ h3 {
 
   .app-shell {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   .filter-panel {
+    order: 3;
     position: static;
     max-height: none;
+  }
+
+  .result-panel {
+    order: 2;
+  }
+
+  .detail-panel {
+    order: 1;
+    position: static;
+    max-height: none;
+  }
+
+  .detail-hero {
+    display: none;
+  }
+
+  .detail-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .prompt-box {
+    max-height: 52vh;
+  }
+
+  .full-prompt-block {
+    order: 1;
+  }
+
+  .formula-block {
+    order: 2;
+  }
+
+  .prompt-preview,
+  .card-action-row {
+    display: block;
   }
 
   .filter-stack {
