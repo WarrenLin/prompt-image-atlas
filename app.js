@@ -93,6 +93,7 @@
     gallery: document.getElementById("gallery"),
     emptyState: document.getElementById("emptyState"),
     detailPanel: document.getElementById("detailPanel"),
+    mobileDetailBackdrop: document.getElementById("mobileDetailBackdrop"),
     toast: document.getElementById("toast")
   };
 
@@ -115,11 +116,13 @@
   function bindEvents() {
     dom.searchInput.addEventListener("input", (event) => {
       state.query = event.target.value.trim();
+      closeMobileDetail();
       render();
     });
 
     dom.sortSelect.addEventListener("change", (event) => {
       state.sort = event.target.value;
+      closeMobileDetail();
       render();
     });
 
@@ -133,6 +136,7 @@
       dom.sortSelect.value = "source";
       const firstPoster = enrichedCases.find((item) => item.category === state.category);
       state.selectedId = firstPoster ? firstPoster.id : enrichedCases[0] && enrichedCases[0].id;
+      closeMobileDetail();
       renderFilters();
       render();
     });
@@ -142,6 +146,7 @@
       if (!button) return;
       state.category = button.dataset.category;
       state.selectedId = null;
+      closeMobileDetail();
       renderFilters();
       render();
     });
@@ -151,6 +156,7 @@
       if (!button) return;
       state.effect = button.dataset.effect;
       state.selectedId = null;
+      closeMobileDetail();
       renderFilters();
       render();
     });
@@ -160,6 +166,7 @@
       if (!button) return;
       state.aspect = button.dataset.aspect;
       state.selectedId = null;
+      closeMobileDetail();
       renderFilters();
       render();
     });
@@ -170,18 +177,29 @@
       state.selectedId = button.dataset.caseId;
       render();
       if (window.matchMedia("(max-width: 820px)").matches) {
-        requestAnimationFrame(() => {
-          const top = dom.detailPanel.getBoundingClientRect().top + window.pageYOffset - 12;
-          window.scrollTo({ top, behavior: "smooth" });
-        });
+        openMobileDetail();
       }
     });
 
     dom.detailPanel.addEventListener("click", (event) => {
+      if (event.target.closest("[data-close-detail]")) {
+        closeMobileDetail();
+        return;
+      }
       const copyButton = event.target.closest("[data-copy-prompt]");
       if (!copyButton) return;
       const item = enrichedCases.find((entry) => entry.id === copyButton.dataset.copyPrompt);
       if (item) copyPrompt(item.prompt);
+    });
+
+    dom.mobileDetailBackdrop.addEventListener("click", closeMobileDetail);
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMobileDetail();
+    });
+
+    window.addEventListener("resize", () => {
+      if (!window.matchMedia("(max-width: 820px)").matches) closeMobileDetail();
     });
   }
 
@@ -381,7 +399,8 @@
           <span class="tag">${escapeHTML(item.categoryName)}</span>
           ${imageNote}
         </div>
-        <h2 class="detail-title">${escapeHTML(item.title)}</h2>
+        <button class="mobile-detail-close" type="button" data-close-detail>關閉</button>
+        <h2 class="detail-title" id="detailTitle">${escapeHTML(item.title)}</h2>
         <p class="detail-meta">Case ${item.caseNumber} · @${escapeHTML(item.author)} · ${item.promptLength.toLocaleString()} chars</p>
         <div class="tag-list">${tags}</div>
 
@@ -429,6 +448,20 @@
     dom.toast.classList.add("is-visible");
     clearTimeout(showToast.timer);
     showToast.timer = setTimeout(() => dom.toast.classList.remove("is-visible"), 1800);
+  }
+
+  function openMobileDetail() {
+    dom.detailPanel.classList.add("is-mobile-open");
+    dom.mobileDetailBackdrop.hidden = false;
+    dom.mobileDetailBackdrop.classList.add("is-visible");
+    document.body.classList.add("modal-open");
+  }
+
+  function closeMobileDetail() {
+    dom.detailPanel.classList.remove("is-mobile-open");
+    dom.mobileDetailBackdrop.classList.remove("is-visible");
+    dom.mobileDetailBackdrop.hidden = true;
+    document.body.classList.remove("modal-open");
   }
 
   function normalize(value) {

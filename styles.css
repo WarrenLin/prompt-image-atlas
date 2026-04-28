@@ -38,6 +38,10 @@ body {
   line-height: 1.5;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 button,
 input,
 select {
@@ -475,6 +479,10 @@ h3 {
   padding: 0;
 }
 
+.mobile-detail-close {
+  display: none;
+}
+
 .detail-empty,
 .detail-content {
   padding: 18px;
@@ -627,6 +635,19 @@ h3 {
   transform: translateY(0);
 }
 
+.mobile-detail-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(16, 20, 15, 0.5);
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.mobile-detail-backdrop.is-visible {
+  opacity: 1;
+}
+
 @media (max-width: 1180px) {
   .topbar {
     grid-template-columns: 1fr;
@@ -660,19 +681,35 @@ h3 {
   }
 
   .filter-panel {
-    order: 3;
+    order: 2;
     position: static;
     max-height: none;
   }
 
   .result-panel {
-    order: 2;
+    order: 1;
   }
 
   .detail-panel {
-    order: 1;
-    position: static;
-    max-height: none;
+    position: fixed;
+    top: auto;
+    right: 10px;
+    bottom: 0;
+    left: 10px;
+    z-index: 60;
+    max-height: min(86dvh, 760px);
+    border-radius: 16px 16px 0 0;
+    overflow: auto;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(calc(100% + 24px));
+    transition: opacity 180ms ease, transform 220ms ease;
+  }
+
+  .detail-panel.is-mobile-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .detail-hero {
@@ -682,10 +719,11 @@ h3 {
   .detail-content {
     display: flex;
     flex-direction: column;
+    padding: 14px 16px max(18px, env(safe-area-inset-bottom));
   }
 
   .prompt-box {
-    max-height: 52vh;
+    max-height: 44dvh;
   }
 
   .full-prompt-block {
@@ -699,6 +737,22 @@ h3 {
   .prompt-preview,
   .card-action-row {
     display: block;
+  }
+
+  .mobile-detail-close {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: inline-flex;
+    align-self: flex-end;
+    margin: -2px 0 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 7px 10px;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 800;
   }
 
   .filter-stack {
