@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GPT-Image-2 Prompt Atlas</title>
+    <meta name="description" content="把 GPT-Image-2 prompt 與輸出效果並排瀏覽的靜態圖鑑。">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand-block" aria-label="網站標題">
+        <div class="brand-mark" aria-hidden="true">P</div>
+        <div>
+          <p class="eyebrow">GPT-Image-2 Prompt Atlas</p>
+          <h1>一句 Prompt，對應一種影像效果</h1>
+        </div>
+      </div>
+
+      <div class="search-block">
+        <label class="search-label" for="searchInput">搜尋</label>
+        <input id="searchInput" type="search" autocomplete="off" placeholder="輸入風格、場景、作者或 prompt 關鍵字">
+      </div>
+
+      <div class="source-block">
+        <span id="caseCount">讀取中</span>
+        <a id="sourceLink" href="https://github.com/EvoLinkAI/awesome-gpt-image-2-prompts" target="_blank" rel="noreferrer">GitHub 來源</a>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <aside class="filter-panel" aria-label="篩選 prompt 案例">
+        <section class="filter-section">
+          <div class="section-head">
+            <h2>分類</h2>
+            <button class="text-button" id="resetFilters" type="button">重設</button>
+          </div>
+          <div class="filter-stack" id="categoryFilters"></div>
+        </section>
+
+        <section class="filter-section">
+          <h2>影像效果</h2>
+          <div class="chip-grid" id="effectFilters"></div>
+        </section>
+
+        <section class="filter-section">
+          <h2>比例</h2>
+          <div class="chip-grid" id="aspectFilters"></div>
+        </section>
+
+        <section class="filter-section source-note">
+          <h2>資料來源</h2>
+          <p id="sourceMeta">來源整理中。</p>
+        </section>
+      </aside>
+
+      <section class="result-panel" aria-label="案例列表">
+        <div class="result-toolbar">
+          <div>
+            <p class="eyebrow">瀏覽器</p>
+            <h2 id="resultTitle">海報與插畫案例</h2>
+          </div>
+          <div class="toolbar-actions">
+            <label for="sortSelect">排序</label>
+            <select id="sortSelect">
+              <option value="source">來源順序</option>
+              <option value="promptLength">Prompt 長度</option>
+              <option value="imageCount">圖片數</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="active-summary" id="activeSummary"></div>
+        <div class="gallery" id="gallery"></div>
+        <div class="empty-state" id="emptyState" hidden>
+          <h3>沒有符合的案例</h3>
+          <p>試著清除搜尋字，或改用其他分類與效果標籤。</p>
+        </div>
+      </section>
+
+      <aside class="detail-panel" id="detailPanel" aria-label="Prompt 詳細拆解"></aside>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="./data/cases.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
