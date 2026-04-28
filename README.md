@@ -1,21 +1,69 @@
 # GPT-Image-2 Prompt Atlas
 
-把 `EvoLinkAI/awesome-gpt-image-2-prompts` 的案例整理成一個靜態瀏覽器，用來快速比較「prompt 結構」和「輸出影像效果」。
+一句 Prompt，對應一種影像效果。
 
-## 開啟
+This is a static visual browser for GPT-Image-2 prompt examples. It turns the prompt collection from `EvoLinkAI/awesome-gpt-image-2-prompts` into a searchable gallery, so you can quickly compare the prompt structure with the generated image result.
 
-直接用瀏覽器開啟 `index.html` 即可。圖片使用 GitHub raw URL 載入，所以需要網路。
+Live site: https://warrenlin.github.io/prompt-image-atlas/
 
-## 資料來源
+## What It Does
 
-- Repository: https://github.com/EvoLinkAI/awesome-gpt-image-2-prompts
+- Browse 290 GPT-Image-2 prompt examples
+- Compare output images and full prompts side by side
+- Filter by category, image effect, and aspect ratio
+- Search by title, author, prompt text, or visual style
+- View an automatic prompt formula breakdown
+- Copy the full prompt in one click
+- Open the original source post and generated image
+
+## Categories
+
+- Portrait and photography
+- Poster and illustration
+- Character design
+- UI and social media screenshots
+- Model comparison and community experiments
+
+## Data Source
+
+The examples are extracted from:
+
+- Source repo: https://github.com/EvoLinkAI/awesome-gpt-image-2-prompts
 - Source file: `README_zh-TW.md`
-- Snapshot: commit `6d229f7` from 2026-04-27
-- License: CC BY 4.0
+- Snapshot commit: `6d229f7`
+- Snapshot date: 2026-04-27
+- Source license: CC BY 4.0
 
-## 檔案
+Images are loaded from GitHub raw URLs. The site needs network access to display them.
 
-- `index.html`: 靜態頁面
-- `styles.css`: 視覺與響應式版面
-- `app.js`: 搜尋、篩選、prompt 拆解與複製互動
-- `data/cases.js`: 從來源 README 萃取的 290 個案例
+## Project Structure
+
+```text
+.
+├── index.html
+├── styles.css
+├── app.js
+├── data/
+│   └── cases.js
+└── README.md
+```
+
+## Local Preview
+
+Open `index.html` directly in a browser.
+
+No build step is required. This is plain HTML, CSS, and JavaScript.
+
+## Deployment
+
+This project is deployed with GitHub Pages from the `main` branch root.
+
+Public URL:
+
+```text
+https://warrenlin.github.io/prompt-image-atlas/
+```
+
+## Notes
+
+This project is an independent browsing interface for studying prompt patterns. The original prompts, images, and source attribution belong to their respective creators and the upstream dataset.
