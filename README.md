@@ -6,9 +6,15 @@ This is a static visual browser for GPT-Image-2 prompt examples. It turns the pr
 
 Live site: https://warrenlin.github.io/prompt-image-atlas/
 
-## Screenshot
+## Screenshots
 
-![GPT-Image-2 Prompt Atlas website screenshot](assets/screenshot.png)
+### Desktop
+
+![GPT-Image-2 Prompt Atlas desktop screenshot](assets/screenshot.png)
+
+### Mobile Prompt Modal
+
+![GPT-Image-2 Prompt Atlas mobile prompt modal screenshot](assets/mobile-screenshot.png)
 
 ## What It Does
 
@@ -18,6 +24,7 @@ Live site: https://warrenlin.github.io/prompt-image-atlas/
 - Search by title, author, prompt text, or visual style
 - View an automatic prompt formula breakdown
 - Copy the full prompt in one click
+- Open full prompt details in a mobile-friendly modal
 - Open the original source post and generated image
 
 ## Categories
@@ -47,6 +54,9 @@ Images are loaded from GitHub raw URLs. The site needs network access to display
 ├── index.html
 ├── styles.css
 ├── app.js
+├── assets/
+│   ├── screenshot.png
+│   └── mobile-screenshot.png
 ├── data/
 │   └── cases.js
 └── README.md
